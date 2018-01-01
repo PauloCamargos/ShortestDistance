@@ -9,12 +9,12 @@ package main;
  *
  * @author pauloc
  */
-public class DataCity {
+public class City {
 
     private String name;
     private int population;
 
-    public DataCity(String nome, int habitantes) {
+    public City(String nome, int habitantes) {
         this.name = nome;
         this.population = habitantes;
     }

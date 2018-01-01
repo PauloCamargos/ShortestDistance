@@ -9,51 +9,51 @@ package main;
  *
  * @author pauloc
  */
-public class NoGrafo {
+public class GraphNode {
 
-    private NoGrafo next;
-    private NoGrafo previous;
-    private DataCity city;
+    private GraphNode next;
+    private GraphNode previous;
+    private City city;
 
-    public NoGrafo(NoGrafo proximo, NoGrafo anterior, DataCity cidade) {
+    public GraphNode(GraphNode proximo, GraphNode anterior, City cidade) {
         this.next = proximo;
         this.previous = anterior;
         this.city = cidade;
     }
     
-    public NoGrafo(DataCity cidade) {
+    public GraphNode(City cidade) {
         this.next = null;
         this.previous = null;
         this.city = cidade;
     }
     
-    public NoGrafo() {
+    public GraphNode() {
         this.next = null;
         this.previous = null;
         this.city = null;
     }
 
-    public NoGrafo getNext() {
+    public GraphNode getNext() {
         return next;
     }
 
-    public void setNext(NoGrafo next) {
+    public void setNext(GraphNode next) {
         this.next = next;
     }
 
-    public NoGrafo getPrevious() {
+    public GraphNode getPrevious() {
         return previous;
     }
 
-    public void setPrevious(NoGrafo previous) {
+    public void setPrevious(GraphNode previous) {
         this.previous = previous;
     }
 
-    public DataCity getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(DataCity city) {
+    public void setCity(City city) {
         this.city = city;
     }
 }

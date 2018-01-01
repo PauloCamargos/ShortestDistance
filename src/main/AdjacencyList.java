@@ -9,6 +9,6 @@ package main;
  *
  * @author pauloc
  */
-public class ListaAdjacente {
+public class AdjacencyList {
     
 }

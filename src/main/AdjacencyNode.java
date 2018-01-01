@@ -9,17 +9,17 @@ package main;
  *
  * @author pauloc
  */
-public class NoLista extends NoGrafo{
+public class AdjacencyNode extends GraphNode{
 
     private double weight;
     private double accumulatedWeight;
     private boolean wasVisited;
-    private DataCity lastCity;
+    private City lastCity;
     
-    public NoLista(
+    public AdjacencyNode(
             double weight, double accumulatedWeight, boolean wasVisited, 
-            DataCity lastCity, NoGrafo proximo, NoGrafo anterior, 
-            DataCity cidade) {
+            City lastCity, GraphNode proximo, GraphNode anterior, 
+            City cidade) {
         super(proximo, anterior, cidade);
         this.weight = weight;
         this.accumulatedWeight = accumulatedWeight;
@@ -27,8 +27,8 @@ public class NoLista extends NoGrafo{
         this.lastCity = lastCity;
     }
 
-    public NoLista(double weight, double accumulatedWeight, boolean wasVisited,
-            DataCity lastCity, DataCity cidade) {
+    public AdjacencyNode(double weight, double accumulatedWeight, boolean wasVisited,
+            City lastCity, City cidade) {
         super(cidade);
         this.weight = weight;
         this.accumulatedWeight = accumulatedWeight;
@@ -36,8 +36,8 @@ public class NoLista extends NoGrafo{
         this.lastCity = lastCity;
     }
 
-    public NoLista(double weight, double accumulatedWeight, boolean wasVisited,
-            DataCity lastCity) {
+    public AdjacencyNode(double weight, double accumulatedWeight, boolean wasVisited,
+            City lastCity) {
         this.weight = weight;
         this.accumulatedWeight = accumulatedWeight;
         this.wasVisited = wasVisited;

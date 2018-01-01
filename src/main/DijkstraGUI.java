@@ -38,9 +38,9 @@ public class DijkstraGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Origem:");
+        jLabel1.setText("Origin:");
 
-        jLabel2.setText("Destino: ");
+        jLabel2.setText("Destiny:");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -57,7 +57,7 @@ public class DijkstraGUI extends javax.swing.JFrame {
             .addGap(0, 194, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Buscar rota");
+        jButton1.setText("Search route");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -83,7 +83,7 @@ public class DijkstraGUI extends javax.swing.JFrame {
                             .addComponent(jTextField1))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(134, 134, 134)
+                .addGap(133, 133, 133)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -98,9 +98,9 @@ public class DijkstraGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
