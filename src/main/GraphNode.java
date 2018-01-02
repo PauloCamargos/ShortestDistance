@@ -14,7 +14,7 @@ public class GraphNode {
     private GraphNode next;
     private GraphNode previous;
     private City city;
-    private AdjacencyList adjacencyList;
+    private AdjacencyList adjacencyList = new AdjacencyList();
     
     public GraphNode(GraphNode proximo, GraphNode anterior, City cidade) {
         this.next = proximo;

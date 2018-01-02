@@ -11,13 +11,13 @@ package main;
  */
 public class AdjacencyNode {
 
-    private AdjacencyNode previous;
-    private AdjacencyNode next;
-    private City city;
-    private double weight;
-    private Double accumulatedWeight;
-    private boolean wasVisited;
-    private City previousCity;
+    public AdjacencyNode previous;
+    public AdjacencyNode next;
+    public City city;
+    public double weight;
+    public Double accumulatedWeight = Double.POSITIVE_INFINITY;
+    public boolean wasVisited;
+    public City previousCity;
     
     public AdjacencyNode() {
         this.previous = null;

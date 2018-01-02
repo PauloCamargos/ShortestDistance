@@ -12,9 +12,9 @@ package main;
  */
 public class AdjacencyList {
 
-    private AdjacencyNode head;
-    private AdjacencyNode tale;
-    private int nodesAmount;
+    public AdjacencyNode head;
+    public AdjacencyNode tale;
+    public int nodesAmount;
 
     public AdjacencyList() {
         this.head = null;
@@ -65,18 +65,22 @@ public class AdjacencyList {
         this.nodesAmount = nodesAmount;
     }
 
+    /**
+     *
+     * @param city
+     * @param weight
+     */
     public void inserirFinal(City city, double weight) {
-        //setNodesAmount(getNodesAmount() + 1);
-
+        setNodesAmount(getNodesAmount() + 1);
         AdjacencyNode new_node = new AdjacencyNode(city, weight);
         //new_node.setWeight(weight);
-        if (head == null) {
-            head = new_node;
-            tale = new_node;
+        if (this.head == null) {
+            this.head = new_node;
+            this.tale = new_node;
         } else {
-            tale.setNext(new_node);
-            new_node.setPrevious(tale);
-            tale = tale.getNext();
+            this.tale.setNext(new_node);
+            new_node.setPrevious(this.tale);
+            this.tale = this.tale.getNext();
         }
     }
 
@@ -146,6 +150,20 @@ public class AdjacencyList {
                 }
                 temp = this.head;;
             }
+        }
+    }
+
+    void insertEnd(City city) {
+        setNodesAmount(getNodesAmount() + 1);
+        AdjacencyNode new_node = new AdjacencyNode(city);
+        //new_node.setWeight(weight);
+        if (this.head == null) {
+            this.head = new_node;
+            this.tale = new_node;
+        } else {
+            this.tale.setNext(new_node);
+            new_node.setPrevious(this.tale);
+            this.tale = this.tale.getNext();
         }
     }
 }

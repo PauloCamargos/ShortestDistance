@@ -16,7 +16,7 @@ public class DijkstraGUI extends javax.swing.JFrame {
      */
     public DijkstraGUI() {
         initComponents();
-        
+
         City araguari = new City("Araguari", 1);
         City ituiutaba = new City("Ituiutaba", 1);
         City centralina = new City("Centralina", 1);
@@ -34,7 +34,6 @@ public class DijkstraGUI extends javax.swing.JFrame {
         City grupiara = new City("Grupiara", 1);
 
         //City losAngeles = new City("Los Angeles", 1);
-
         //grafo que represetna o Grafo
         Graph grafo = new Graph();
 
@@ -56,12 +55,10 @@ public class DijkstraGUI extends javax.swing.JFrame {
         grafo.insertEnd(estrelaSul);
         grafo.insertEnd(grupiara);
         grafo.insertEnd(cascalhoRico);
-        grafo.printCities();
+        //grafo.printCities();
 
-        System.out.println(Double.POSITIVE_INFINITY);
-                        System.out.println("Estou funcionando aqui!!!!");
+        System.out.println("Estou funcionando aqui!!!!");
 
-        
         grafo.insertEdge(capinopolis, centralina, 40);
         grafo.insertEdge(centralina, ituiutaba, 30);
         grafo.insertEdge(ituiutaba, malegreminas, 85);
@@ -84,7 +81,6 @@ public class DijkstraGUI extends javax.swing.JFrame {
         grafo.insertEdge(estrelaSul, romaria, 27);
         grafo.insertEdge(romaria, novaPonte, 28);
         grafo.insertEdge(novaPonte, indianopolis, 40);
-
     }
 
     /**

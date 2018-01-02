@@ -127,17 +127,19 @@ public class Graph {
     public void insertEnd(City city) {
         GraphNode new_node = new GraphNode(city);
         if (head == null) {
-            head =  new_node;
+            head = new_node;
             tale = new_node;
+            System.out.println(city.getName() + " na cabeça inserida com sucesso");
         } else {
             tale.setNext(new_node);
             new_node.setPrevious(tale);
             tale = tale.getNext();
+            System.out.println(city.getName() + " inserida com sucesso");
         }
+
         setNodesAmount(getNodesAmount() + 1);
-        AdjacencyList temp;
-        temp = getPriorityList();//.inserirFinal(city,0);
-        //.inserirFinal(city, 1);
+        //this.createPriorityList();
+        //getPriorityList().inserirFinal(city, 0);
     }
 
     /**
@@ -170,9 +172,10 @@ public class Graph {
         if (node_1 == null || node_2 == null) {
             System.out.println("Coudn't find that city. Try again.");
         } else {
-            System.out.println(node_1.getCity().getName());
+
             (node_1.getAdjacencyList()).inserirFinal(city_2, weight);
             (node_2.getAdjacencyList()).inserirFinal(city_1, weight);
+            System.out.println("Aresta criada com sucesso!");
         }
     }
 
@@ -231,9 +234,7 @@ public class Graph {
                 break;
             }
             newOrigin = priorityList.findNode(newOrigin).getNext().getCity();
-
         }
-
     }
 
     /**
@@ -274,4 +275,12 @@ public class Graph {
         return route;
     }
 
+    private void createPriorityList() {
+        GraphNode temp;
+        temp = this.getHead();
+        while(temp != null){
+            this.priorityList.insertEnd(temp.getCity());
+            temp = temp.getNext();
+        }
+    }
 } //End of class
