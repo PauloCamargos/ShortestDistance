@@ -11,10 +11,10 @@ package main;
  */
 public class Graph {
 
-    private GraphNode head;
-    private GraphNode tale;
-    private int nodesAmount;
-    private AdjacencyList priorityList = new AdjacencyList();
+    public GraphNode head;
+    public GraphNode tale;
+    public int nodesAmount;
+    public AdjacencyList priorityList = new AdjacencyList();
 
     /**
      * Constructor Graph(GraphNode head, GraphNode tale)
@@ -127,25 +127,35 @@ public class Graph {
     public void insertEnd(City city) {
         GraphNode new_node = new GraphNode(city);
         if (head == null) {
-            head = tale = new_node;
+            head =  new_node;
+            tale = new_node;
         } else {
             tale.setNext(new_node);
             new_node.setPrevious(tale);
             tale = tale.getNext();
         }
         setNodesAmount(getNodesAmount() + 1);
-        priorityList.insertEnd(city, Double.POSITIVE_INFINITY);
+        AdjacencyList temp;
+        temp = getPriorityList();//.inserirFinal(city,0);
+        //.inserirFinal(city, 1);
     }
 
     /**
      * Locate and returs a Graph node based on the given data
      *
-     * @param data
+     * @param city
      * @return foundNode
      */
-    public GraphNode findNode(City data) {
-
-        return null;
+    public GraphNode findNode(City city) {
+        GraphNode temp = getHead();
+        while (temp != null) {
+            if (temp.getCity() == city) {
+                return temp;
+            } else {
+                temp = temp.getNext();
+            }
+        }
+        return temp;
     }
 
     /**
@@ -155,13 +165,14 @@ public class Graph {
      * @param weight
      */
     public void insertEdge(City city_1, City city_2, double weight) {
-        GraphNode node_1 = this.findNode(city_1);
-        GraphNode node_2 = this.findNode(city_2);
+        GraphNode node_1 = findNode(city_1);
+        GraphNode node_2 = findNode(city_2);
         if (node_1 == null || node_2 == null) {
             System.out.println("Coudn't find that city. Try again.");
         } else {
-            node_1.getAdjacencyList().insertEnd(city_1, weight);
-            node_2.getAdjacencyList().insertEnd(city_2, weight);
+            System.out.println(node_1.getCity().getName());
+            (node_1.getAdjacencyList()).inserirFinal(city_2, weight);
+            (node_2.getAdjacencyList()).inserirFinal(city_1, weight);
         }
     }
 
@@ -184,9 +195,9 @@ public class Graph {
         //            |   |     Marque nó V como visitado
         //            |   |     Ordene a lista
 
-        AdjacencyNode aux = new AdjacencyNode(); //Auxiliary node to run the adj list
-        AdjacencyNode aux_PL = new AdjacencyNode(); //Aux for priority list
-        AdjacencyNode new_origin_PL = new AdjacencyNode(); //Aux for priority list
+        AdjacencyNode aux;//= new AdjacencyNode(); //Auxiliary node to run the adj list
+        AdjacencyNode aux_PL;// = new AdjacencyNode(); //Aux for priority list
+        AdjacencyNode new_origin_PL;// = new AdjacencyNode(); //Aux for priority list
         City newOrigin = origin;
         int i = 1;
 
@@ -215,7 +226,10 @@ public class Graph {
             }
             priorityList.sortList();
             priorityList.findNode(newOrigin).setWasVisited(true);
-            i++; if(i > this.getNodesAmount()) break;
+            i++;
+            if (i > this.getNodesAmount()) {
+                break;
+            }
             newOrigin = priorityList.findNode(newOrigin).getNext().getCity();
 
         }
@@ -254,7 +268,7 @@ public class Graph {
         AdjacencyList route = new AdjacencyList();
         AdjacencyNode temporary = priorityList.findNode(destiny);
         while (temporary != null) {
-            route.insertEnd(temporary.getCity(), temporary.getAccumulatedWeight());
+            //route.inserirFinal(temporary.getCity(), temporary.getAccumulatedWeight());
             temporary = temporary.getNext();
         }
         return route;

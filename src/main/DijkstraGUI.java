@@ -16,6 +16,75 @@ public class DijkstraGUI extends javax.swing.JFrame {
      */
     public DijkstraGUI() {
         initComponents();
+        
+        City araguari = new City("Araguari", 1);
+        City ituiutaba = new City("Ituiutaba", 1);
+        City centralina = new City("Centralina", 1);
+        City itumbiara = new City("Itumbiara", 1);
+        City capinopolis = new City("Capinópolis", 1);
+        City malegreminas = new City("Monte Alegre de Minas", 1);
+        City douradinhos = new City("Douradinhos", 1);
+        City tupaciguara = new City("Tupaciguara", 1);
+        City uberlandia = new City("Uberlândia", 1);
+        City indianopolis = new City("Indianópolis", 1);
+        City novaPonte = new City("Nova Ponte", 1);
+        City romaria = new City("Romaria", 1);
+        City estrelaSul = new City("Estrela do Sul", 1);
+        City cascalhoRico = new City("Cascalho Rico", 1);
+        City grupiara = new City("Grupiara", 1);
+
+        //City losAngeles = new City("Los Angeles", 1);
+
+        //grafo que represetna o Grafo
+        Graph grafo = new Graph();
+
+        //teste
+        //grafo.insertEnd(losAngeles);
+        //Inserindo nós no grafo, representando os objetos criados
+        grafo.insertEnd(araguari);
+        grafo.insertEnd(ituiutaba);
+        grafo.insertEnd(centralina);
+        grafo.insertEnd(itumbiara);
+        grafo.insertEnd(capinopolis);
+        grafo.insertEnd(malegreminas);
+        grafo.insertEnd(douradinhos);
+        grafo.insertEnd(tupaciguara);
+        grafo.insertEnd(uberlandia);
+        grafo.insertEnd(indianopolis);
+        grafo.insertEnd(novaPonte);
+        grafo.insertEnd(romaria);
+        grafo.insertEnd(estrelaSul);
+        grafo.insertEnd(grupiara);
+        grafo.insertEnd(cascalhoRico);
+        grafo.printCities();
+
+        System.out.println(Double.POSITIVE_INFINITY);
+                        System.out.println("Estou funcionando aqui!!!!");
+
+        
+        grafo.insertEdge(capinopolis, centralina, 40);
+        grafo.insertEdge(centralina, ituiutaba, 30);
+        grafo.insertEdge(ituiutaba, malegreminas, 85);
+        grafo.insertEdge(ituiutaba, douradinhos, 90);
+        grafo.insertEdge(centralina, itumbiara, 20);
+        grafo.insertEdge(centralina, malegreminas, 75);
+        grafo.insertEdge(itumbiara, tupaciguara, 55);
+        grafo.insertEdge(malegreminas, douradinhos, 28);
+        grafo.insertEdge(malegreminas, uberlandia, 60);
+        grafo.insertEdge(malegreminas, tupaciguara, 44);
+        grafo.insertEdge(douradinhos, uberlandia, 63);
+        grafo.insertEdge(uberlandia, araguari, 30);
+        grafo.insertEdge(uberlandia, romaria, 78);
+        grafo.insertEdge(uberlandia, indianopolis, 45);
+        grafo.insertEdge(uberlandia, tupaciguara, 60);
+        grafo.insertEdge(araguari, cascalhoRico, 28);
+        grafo.insertEdge(araguari, estrelaSul, 34);
+        grafo.insertEdge(cascalhoRico, grupiara, 32);
+        grafo.insertEdge(grupiara, estrelaSul, 38);
+        grafo.insertEdge(estrelaSul, romaria, 27);
+        grafo.insertEdge(romaria, novaPonte, 28);
+        grafo.insertEdge(novaPonte, indianopolis, 40);
+
     }
 
     /**
@@ -29,12 +98,12 @@ public class DijkstraGUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tf_origin = new javax.swing.JTextField();
+        tf_destiny = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        ta_route = new javax.swing.JTextArea();
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
+        bt_search_route = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,9 +111,9 @@ public class DijkstraGUI extends javax.swing.JFrame {
 
         jLabel2.setText("Destiny:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        ta_route.setColumns(20);
+        ta_route.setRows(5);
+        jScrollPane1.setViewportView(ta_route);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -57,10 +126,10 @@ public class DijkstraGUI extends javax.swing.JFrame {
             .addGap(0, 194, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Search route");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bt_search_route.setText("Search route");
+        bt_search_route.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bt_search_routeActionPerformed(evt);
             }
         });
 
@@ -79,12 +148,12 @@ public class DijkstraGUI extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1))))
+                            .addComponent(tf_destiny)
+                            .addComponent(tf_origin))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(133, 133, 133)
-                .addComponent(jButton1)
+                .addComponent(bt_search_route)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,13 +162,13 @@ public class DijkstraGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_origin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_destiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(bt_search_route)
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -110,9 +179,9 @@ public class DijkstraGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bt_search_routeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_search_routeActionPerformed
+
+    }//GEN-LAST:event_bt_search_routeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,13 +219,13 @@ public class DijkstraGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bt_search_route;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextArea ta_route;
+    private javax.swing.JTextField tf_destiny;
+    private javax.swing.JTextField tf_origin;
     // End of variables declaration//GEN-END:variables
 }
