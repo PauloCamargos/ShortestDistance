@@ -14,11 +14,13 @@ public class GraphNode {
     private GraphNode next;
     private GraphNode previous;
     private City city;
-
+    private AdjacencyList adjacencyList;
+    
     public GraphNode(GraphNode proximo, GraphNode anterior, City cidade) {
         this.next = proximo;
         this.previous = anterior;
         this.city = cidade;
+        this.adjacencyList = null;
     }
     
     public GraphNode(City cidade) {
@@ -55,5 +57,13 @@ public class GraphNode {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public AdjacencyList getAdjacencyList() {
+        return adjacencyList;
+    }
+
+    public void setAdjacencyList(AdjacencyList adjacencyList) {
+        this.adjacencyList = adjacencyList;
     }
 }

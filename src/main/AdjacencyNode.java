@@ -18,7 +18,7 @@ public class AdjacencyNode {
     private double accumulatedWeight;
     private boolean wasVisited;
     private City previousCity;
-
+    
     public AdjacencyNode() {
         this.previous = null;
         this.next = null;
@@ -29,6 +29,16 @@ public class AdjacencyNode {
         this.previousCity = null;
     }
 
+    public AdjacencyNode(City city, double weight) {
+        this.previous = null;
+        this.next = null;
+        this.weight = weight;
+        this.city = city;
+        this.accumulatedWeight = Double.POSITIVE_INFINITY;
+        this.wasVisited = false;
+        this.previousCity = null;
+    }
+    
     public AdjacencyNode(AdjacencyNode previous, AdjacencyNode next, double weight, double accumulatedWeight, boolean wasVisited, City lastCity) {
         this.previous = previous;
         this.next = next;
@@ -71,7 +81,7 @@ public class AdjacencyNode {
         this.accumulatedWeight = accumulatedWeight;
     }
 
-    public boolean isWasVisited() {
+    public boolean getWasVisited() {
         return wasVisited;
     }
 

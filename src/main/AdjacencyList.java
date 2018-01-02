@@ -10,21 +10,24 @@ package main;
  *
  * @author pauloc
  */
-public class AdjacencyList{
+public class AdjacencyList {
 
     private AdjacencyNode head;
     private AdjacencyNode tale;
     private int nodesAmount;
 
     public AdjacencyList() {
+        this.head = null;
+        this.tale = null;
+        this.nodesAmount = 0;
     }
 
-    public AdjacencyList(AdjacencyNode head, AdjacencyNode tale, int nodesAmount) {
+    public AdjacencyList(AdjacencyNode head, AdjacencyNode tale) {
         this.head = head;
         this.tale = tale;
-        this.nodesAmount = nodesAmount;
+        this.nodesAmount = 0;
     }
-    
+
     //todo: implement case city wasn't found.
     public AdjacencyNode findNode(City city) {
         AdjacencyNode temp = getHead();
@@ -62,4 +65,92 @@ public class AdjacencyList{
         this.nodesAmount = nodesAmount;
     }
 
+    public void insertEnd(City city, double weight) {
+        AdjacencyNode new_node = new AdjacencyNode(city, weight);
+        if (head == null) {
+            head = tale = new_node;
+        } else {
+            tale.setNext(new_node);
+            new_node.setPrevious(tale);
+            tale = tale.getNext();
+        }
+        setNodesAmount(getNodesAmount() + 1);
+    }
+
+    void printCities() {
+        AdjacencyNode temporary;
+        temporary = this.getHead();
+        while (temporary != null) {
+            System.out.println(temporary.getCity().getName());
+            temporary = temporary.getNext();
+        }
+    }
+
+    void resetList() {
+        AdjacencyNode temporary = this.getHead();
+        while (temporary != null) {
+            temporary.setAccumulatedWeight(Double.POSITIVE_INFINITY);
+            temporary.setPreviousCity(null);
+            temporary.setWasVisited(false);
+            temporary = temporary.getNext();
+        }
+    }
+
+    void sortList() {
+            AdjacencyNode temp = this.head;  // Variavel temporario do loop de fora
+            AdjacencyNode temp_2 = this.head; // Variavel temporario do loop de dentro
+            City aux_data;
+            Double aux_distDijkstra;
+            City aux_caminhoDijkstra;
+            boolean naoEstaOrdenada = true;
+            boolean flag = true;
+
+            while (naoEstaOrdenada)
+            {
+                while (temp_2 != null && flag && naoEstaOrdenada)
+                {
+                    aux_data = temp_2.getCity();
+                    aux_distDijkstra = temp_2.getAccumulatedWeight();
+                    aux_caminhoDijkstra = temp_2.getPreviousCity();
+
+                    if (temp_2 == null || temp_2.getNext() == null)
+                    {
+                        naoEstaOrdenada = false;
+                        flag = false;
+                        break;
+                    }
+
+                    if (temp_2.getNext().getAccumulatedWeight() < temp_2.getAccumulatedWeight())
+                    {
+
+                        //Troca os nós de lugar
+                        temp_2.setCity(temp_2.getNext().getCity()); 
+                        temp_2.setAccumulatedWeight(temp_2.getNext().getAccumulatedWeight());
+                        temp_2.setPreviousCity(temp_2.getNext().getPreviousCity());
+
+                        temp_2.getNext().setCity(aux_data);
+                        temp_2.getNext().setAccumulatedWeight(aux_distDijkstra);
+                        temp_2.getNext().setPreviousCity(aux_caminhoDijkstra);
+                        temp_2 = this.head;
+                    }
+                    else
+                        temp_2 = temp_2.getNext();
+                    //Verfica se a lista está ordenada
+                    while (temp.getNext() != null)
+                    {
+                        if (temp.getNext().getAccumulatedWeight() < temp.getAccumulatedWeight())
+                        {
+                            naoEstaOrdenada = true;
+                            break;
+                        }
+                        else
+                        {
+                            naoEstaOrdenada = false;
+                            temp = temp.getNext();
+                        }
+                    }
+                    temp = this.head; ;
+                }
+            }
+    }
 }
