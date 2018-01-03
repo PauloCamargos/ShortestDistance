@@ -11,11 +11,6 @@ package main;
  */
 public class DijkstraGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DijkstraGUI
-     */
-    public DijkstraGUI() {
-        initComponents();
 
         City araguari = new City("Araguari", 1);
         City ituiutaba = new City("Ituiutaba", 1);
@@ -36,11 +31,21 @@ public class DijkstraGUI extends javax.swing.JFrame {
         //City losAngeles = new City("Los Angeles", 1);
         //grafo que represetna o Grafo
         Graph grafo = new Graph();
-
         //teste
         //grafo.insertEnd(losAngeles);
         //Inserindo nós no grafo, representando os objetos criados
-        grafo.insertEnd(araguari);
+        
+    /**
+     * Creates new form DijkstraGUI
+     */
+
+    public DijkstraGUI() {
+        initComponents();
+        createGraph();
+
+    }
+    private void createGraph(){
+    grafo.insertEnd(araguari);
         grafo.insertEnd(ituiutaba);
         grafo.insertEnd(centralina);
         grafo.insertEnd(itumbiara);
@@ -80,8 +85,8 @@ public class DijkstraGUI extends javax.swing.JFrame {
         grafo.insertEdge(grupiara, estrelaSul, 38);
         grafo.insertEdge(estrelaSul, romaria, 27);
         grafo.insertEdge(romaria, novaPonte, 28);
-        grafo.insertEdge(novaPonte, indianopolis, 40);
-    }
+        grafo.insertEdge(novaPonte, indianopolis, 40);}
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,32 +105,49 @@ public class DijkstraGUI extends javax.swing.JFrame {
         ta_route = new javax.swing.JTextArea();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         bt_search_route = new javax.swing.JButton();
+        bt_registered_cities = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Shortest Route");
 
         jLabel1.setText("Origin:");
 
         jLabel2.setText("Destiny:");
 
+        tf_origin.setToolTipText("Enter the departure city");
+
+        tf_destiny.setToolTipText("Enter the arrival city");
+
+        ta_route.setEditable(false);
         ta_route.setColumns(20);
+        ta_route.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        ta_route.setLineWrap(true);
         ta_route.setRows(5);
+        ta_route.setWrapStyleWord(true);
         jScrollPane1.setViewportView(ta_route);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 194, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
         );
 
         bt_search_route.setText("Search route");
         bt_search_route.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_search_routeActionPerformed(evt);
+            }
+        });
+
+        bt_registered_cities.setText("Registerd Cities");
+        bt_registered_cities.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_registered_citiesActionPerformed(evt);
             }
         });
 
@@ -136,8 +158,6 @@ public class DijkstraGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -145,13 +165,20 @@ public class DijkstraGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tf_destiny)
-                            .addComponent(tf_origin))))
+                            .addComponent(tf_origin)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(bt_registered_cities)
+                                .addGap(18, 18, 18)
+                                .addComponent(bt_search_route)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jDesktopPane1))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(bt_search_route)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bt_registered_cities, bt_search_route});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -164,12 +191,14 @@ public class DijkstraGUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(tf_destiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bt_search_route)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_search_route)
+                    .addComponent(bt_registered_cities))
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,7 +206,35 @@ public class DijkstraGUI extends javax.swing.JFrame {
 
     private void bt_search_routeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_search_routeActionPerformed
 
+//        
+        AdjacencyList route;
+        //route = grafo.shortestDistance(itumbiara, novaPonte);
+        //route.printRoute();
+
+        //grafo.shortestDistance(novaPonte, itumbiara);
+        //grafo.shortestDistance(ituiutaba, novaPonte);
+        //System.out.println("Estou aqui motherfucker");
+        // grafo.printCities();
+        String origin = tf_origin.getText();
+        String destiny = tf_destiny.getText();
+//
+//        AdjacencyList route;// = new AdjacencyList();
+        City _origin = grafo.findCityByName(origin);
+        City _destiny = grafo.findCityByName(destiny);
+//
+        route = grafo.shortestDistance(_origin, _destiny);
+          System.out.println(route.printRoute()); 
+          
+          ta_route.setText(route.printRoute());
+
+
     }//GEN-LAST:event_bt_search_routeActionPerformed
+
+    private void bt_registered_citiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registered_citiesActionPerformed
+        // TODO add your handling code here:
+        ta_route.setText(grafo.printCities());
+        
+    }//GEN-LAST:event_bt_registered_citiesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +272,7 @@ public class DijkstraGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_registered_cities;
     private javax.swing.JButton bt_search_route;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;

@@ -70,7 +70,7 @@ public class AdjacencyList {
      * @param city
      * @param weight
      */
-    public void inserirFinal(City city, double weight) {
+    public void insertEnd(City city, double weight) {
         setNodesAmount(getNodesAmount() + 1);
         AdjacencyNode new_node = new AdjacencyNode(city, weight);
         //new_node.setWeight(weight);
@@ -88,7 +88,7 @@ public class AdjacencyList {
         AdjacencyNode temporary;
         temporary = this.getHead();
         while (temporary != null) {
-            System.out.println(temporary.getCity().getName());
+            System.out.println(temporary.getCity().getName() + "(" + temporary.getAccumulatedWeight() + ")");
             temporary = temporary.getNext();
         }
     }
@@ -165,5 +165,45 @@ public class AdjacencyList {
             new_node.setPrevious(this.tale);
             this.tale = this.tale.getNext();
         }
+    }
+
+    void insertBeginning(City city, double accumulatedWeight) {
+        AdjacencyNode newNode = new AdjacencyNode(city, accumulatedWeight);
+        newNode.setAccumulatedWeight(accumulatedWeight);
+        if (head == null) {
+            head = newNode;
+            tale = newNode;
+        } else {
+            newNode.setNext(head);
+            head.setPrevious(newNode);
+            head = newNode;
+        }
+        nodesAmount++;
+    } // End of insertBeginning.
+
+    public String printRoute() {
+        AdjacencyNode temp = this.head;
+        //System.out.println(temp2.getCity().getName());
+        String route_message = "With " + this.tale.getAccumulatedWeight() + " Km, the "
+                + "shortest route is: \n";
+        //System.out.println("With " + this.tale.getAccumulatedWeight() + " Km, the "
+          //      + "shortest route is: ");
+
+        while (temp != null) {
+            if (temp.getNext() != null) {
+                route_message += temp.getCity().getName() + " ("
+                        + temp.getAccumulatedWeight() + " Km)" + " -> ";
+                //System.out.print(temp.getCity().getName() + " ("
+                  //      + temp.getAccumulatedWeight() + " Km)" + " -> ");
+            } else {
+                route_message += temp.getCity().getName() + " ("
+                        + temp.getAccumulatedWeight() + " Km) ";
+                //System.out.print(temp.getCity().getName() + " ("
+                  //      + temp.getAccumulatedWeight() + " Km) ");
+            }
+            temp = temp.getNext();
+        }
+        //System.out.println(route_message);
+        return route_message;
     }
 }

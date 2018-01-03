@@ -15,6 +15,7 @@ public class Graph {
     public GraphNode tale;
     public int nodesAmount;
     public AdjacencyList priorityList = new AdjacencyList();
+    public AdjacencyList route = new AdjacencyList();
 
     /**
      * Constructor Graph(GraphNode head, GraphNode tale)
@@ -26,7 +27,7 @@ public class Graph {
         this.head = head;
         this.tale = tale;
         this.nodesAmount = 0;
-        this.priorityList = null;
+        //this.priorityList = null;
     }
 
     /**
@@ -36,7 +37,7 @@ public class Graph {
         this.head = null;
         this.tale = null;
         this.nodesAmount = 0;
-        this.priorityList = null;
+        //this.priorityList = null;
     }
 
     /**
@@ -138,8 +139,7 @@ public class Graph {
         }
 
         setNodesAmount(getNodesAmount() + 1);
-        //this.createPriorityList();
-        //getPriorityList().inserirFinal(city, 0);
+        getPriorityList().insertEnd(city, 0);
     }
 
     /**
@@ -173,8 +173,8 @@ public class Graph {
             System.out.println("Coudn't find that city. Try again.");
         } else {
 
-            (node_1.getAdjacencyList()).inserirFinal(city_2, weight);
-            (node_2.getAdjacencyList()).inserirFinal(city_1, weight);
+            (node_1.getAdjacencyList()).insertEnd(city_2, weight);
+            (node_2.getAdjacencyList()).insertEnd(city_1, weight);
             System.out.println("Aresta criada com sucesso!");
         }
     }
@@ -197,6 +197,9 @@ public class Graph {
         //            |   |     |    Configure o noh anterior de U = V
         //            |   |     Marque nó V como visitado
         //            |   |     Ordene a lista
+
+        route.resetList();
+        route.head = null;
 
         AdjacencyNode aux;//= new AdjacencyNode(); //Auxiliary node to run the adj list
         AdjacencyNode aux_PL;// = new AdjacencyNode(); //Aux for priority list
@@ -240,47 +243,69 @@ public class Graph {
     /**
      *
      */
-    public void printCities() {
+    public String printCities() {
+        String cities = "";
         GraphNode temporary;
         temporary = this.getHead();
         while (temporary != null) {
+            cities += temporary.getCity().getName() + "\n";
             System.out.println(temporary.getCity().getName());
             temporary = temporary.getNext();
         }
+        return cities;
     }
 
     /**
      *
      * @param origin
      * @param destiny
+     * @return
      */
-    public void shortestDistance(City origin, City destiny) {
+    public AdjacencyList shortestDistance(City origin, City destiny) {
         if (origin == null || destiny == null) {
             System.out.println("Couldn't find that node. Try again!");
         } else {
             calculateDijkstra(origin, destiny);
-            AdjacencyList route = createRoute(destiny);
-            route.printCities();
+            route = createRoute(destiny);
+            route.printRoute();
             priorityList.resetList();
-        }
-    }
-
-    public AdjacencyList createRoute(City destiny) {
-        AdjacencyList route = new AdjacencyList();
-        AdjacencyNode temporary = priorityList.findNode(destiny);
-        while (temporary != null) {
-            //route.inserirFinal(temporary.getCity(), temporary.getAccumulatedWeight());
-            temporary = temporary.getNext();
+            priorityList.printCities();
         }
         return route;
     }
 
-    private void createPriorityList() {
-        GraphNode temp;
-        temp = this.getHead();
-        while(temp != null){
-            this.priorityList.insertEnd(temp.getCity());
-            temp = temp.getNext();
+    public AdjacencyList createRoute(City destiny) {
+
+        AdjacencyNode temporary = priorityList.findNode(destiny); // Catch the destiny node in the PL
+        route.insertBeginning(temporary.getCity(), temporary.getAccumulatedWeight());
+        // Insert that node in the route list
+        System.out.println("Inserindo na rota " + temporary.getCity().getName() + " (" + temporary.getAccumulatedWeight() + ")Km");
+
+        while (temporary.accumulatedWeight != 0) { //While the origin city hasn't been found
+            temporary = priorityList.findNode(temporary.getPreviousCity()); // Temporary receives the previous city
+            System.out.println("Inserindo na rota " + temporary.getCity().getName() + " (" + temporary.getAccumulatedWeight() + ")Km");
+            route.insertBeginning(temporary.getCity(), temporary.getAccumulatedWeight());
         }
+        return route;
+    }
+
+    public City findCityByName(String city_name) {
+        City city = null;
+        GraphNode temp = head;
+        if (temp == null) {
+            System.out.println("Coudnt find");
+            return null;
+        } else {
+            while (temp != null) {
+                if ((temp.getCity().getName()).equals(city_name)) {
+                    city = temp.getCity();
+                    break;
+                } else {
+                    temp = temp.getNext();
+                }
+            }
+            return city;
+        }
+
     }
 } //End of class
